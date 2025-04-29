@@ -20,7 +20,25 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type TupleToObject<T extends readonly any[]> = any
+type TupleToObject<T extends readonly (keyof any)[]> = {
+  [Key in T[number]]: Key
+}
+
+/**
+ * 튜플
+ * 길이 고정, 요소 다를 수 있음, [string, number, boolean]
+ *
+ * 배열
+ * 길이 가변, 요소 같음, string[]
+ *
+ * keyof any
+ * string | number | symbol → 즉, 객체의 키로 쓸 수 있는 타입들
+ *
+ * type T[number]
+ * 튜플 타입에서 모든 요소의 유니언 타입을 꺼내는 기법
+ * type T = ["a", "b"];
+ * type T[number] // "a" | "b"
+ */
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
