@@ -18,7 +18,32 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type MyExclude<T, U> = any
+type MyExclude<T, U> = T extends U ? never : T
+
+type A = 's' | 'n' | 'q'
+type B = 's' | 'n'
+
+type C = A extends B ? never : A // 's' | 'n' | 'q'
+type D = MyExclude<A, B> // 'q'
+
+/**
+ * type D =
+ * ('s' extends 's' | 'n'  ? never : 's')
+ * | ('n' extends 's' | 'n'  ? never : 'n')
+ * | ('q' extends 's' | 'n'  ? never : 'q')
+ *
+ * 분산 조건부 타입(Distributive Conditional Types)
+ * 링크: https://www.typescriptlang.org/docs/handbook/2/conditional-types.html#distributive-conditional-types
+ * 조건부 타입에 유니온 타입을 입력하면, 각 요소별로 조건을 평가해서 결과를 "분산(distribute)"시킨다.
+ *
+ * type Example<T> = T extends string ? "yes" : "no"
+ * type A = Example<"a" | 42 | true> // "yes" | "no" | "no"
+ *
+ * 분산 조건부가 싫으면 []로 감싸면 됨
+ *
+ * type Wrapped<T> = [T] extends [string] ? "yes" : "no";
+ *
+ */
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
