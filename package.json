@@ -6,14 +6,6 @@
   "author": "Anthony Fu <anthonyfu117@hotmail.com>",
   "license": "MIT",
   "repository": "https://github.com/antfu/type-challenges.git",
-  "scripts": {
-    "readme": "esno ./scripts/readme.ts",
-    "build": "esno ./scripts/build.ts",
-    "generate": "esno ./scripts/generate-play.ts",
-    "lint": "eslint .",
-    "translate": "esno ./scripts/translate-cli.ts",
-    "utils:release": "pnpm -C utils release"
-  },
   "dependencies": {
     "esno": "^4.0.0",
     "fast-glob": "^3.3.2",
