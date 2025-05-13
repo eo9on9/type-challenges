@@ -22,7 +22,24 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type MyAwaited<T> = any
+type MyAwaited<T extends PromiseLike<any>> =
+  T extends PromiseLike<infer U>
+    ? U extends PromiseLike<any>
+      ? MyAwaited<U>
+      : U
+    : never
+
+/**
+ * PromiseLike
+ *  - onFulfilled와 onRejected 콜백을 파라미터로 받는 then 메서드가 구현된 객체 타입
+ *  - 일반적으로, 자바스크립트에서 PromiseLike를 사용할 일은 드물지만, 커스텀 비동기 객체라던지, 외부 라이브러리 사용 시 필요.
+ *
+ * U extends PromiseLike<any> ? MyAwaited<U> : U
+ *  - 재귀적으로 서브타입 검사를 수행하기 위한 조건
+ *
+ * never
+ *  - 애초에 T가 PromiseLike가 아니면 never로 타입 오류 발생
+ */
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

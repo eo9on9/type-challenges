@@ -18,7 +18,18 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Includes<T extends readonly any[], U> = any
+type Includes<T extends readonly unknown[], U> =
+  T extends [infer First, ...infer Rest]
+    ? Equal<First, U> extends true ? true : Includes<Rest, U>
+    : false
+
+/**
+ * T extends [infer First, ...infer Rest]
+ *  - 배열 전개 연산 사용, 첫 요소와 나머지로 나눔
+ *
+ * infer
+ *  - 조건부 타입에서 타입을 자동으로 추론하고 추론된 타입을 First와 Rest와 같은 변수 이름으로 사용
+ */
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

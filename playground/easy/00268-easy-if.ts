@@ -19,7 +19,23 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type If<C, T, F> = any
+type If<C extends boolean, T, F> = C extends true ? T : F
+
+/**
+ * C 는 boolean 타입이기 때문에, true 도 false 도 아닌 상태에서는 두 타입 모두 가질 수 있다.
+ *
+ * true, false 의 타입은 boolean 의 서브타입니다.
+ *
+ *
+ */
+
+type A = true
+type B = boolean
+
+let a: A
+let b: B
+
+b = a
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

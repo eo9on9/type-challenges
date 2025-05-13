@@ -18,7 +18,29 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type Concat<T, U> = any
+type Tuple = readonly unknown[]
+
+type Concat<T extends Tuple, U extends Tuple> = [...T, ...U]
+
+/**
+ * any
+ *  - 모든 타입을 허용하지만 타입 체크를 비활성화하여 안전하지 않음
+ *
+ * unknown
+ *  - 모든 타입을 허용하지만 값 사용 전에 반드시 타입 검사를 해야 하므로 더 안전
+ *
+ * unknown[]
+ *  - 일반 배열 타입. 요소 및 길이 수정 가능
+ *
+ * readonly unknown[]
+ *  - 읽기 전용 배열 타입. 요소 및 길이 수정 불가능
+ *
+ * 배열 as const
+ *  - as const 는 값을 리터럴 타입으로 고정시킴 => 읽기 전용 튜플
+ *
+ * [...T, ...U]
+ *  - 타입스크립트에서도 배열 타입에 전개 연산자를 사용할 수 있음
+ */
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
