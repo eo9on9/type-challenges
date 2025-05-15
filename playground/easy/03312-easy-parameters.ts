@@ -20,7 +20,15 @@
 
 /* _____________ 여기에 코드 입력 _____________ */
 
-type MyParameters<T extends (...args: any[]) => any> = any
+type MyParameters<T extends (...args: any[]) => any> = T extends (...any: infer S) => any ? S : any
+
+/**
+ * 조건부 타입 안에서 타입을 추론해서 이름 붙이는 키워드 infer
+ *
+ * 타입스크립트에서 함수 타입 선언에 ...를 쓴다는 것은 "튜플을 펼쳐서 리스트로 쓰겠다"는 의미
+ *
+ * infer와 함께 쓰는 ...args: infer S는 "이 위치의 튜플을 S라는 이름으로 추론하겠다"는 의미
+ */
 
 /* _____________ 테스트 케이스 _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
